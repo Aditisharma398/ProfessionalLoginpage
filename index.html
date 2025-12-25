@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Auth UI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background:radial-gradient(circle at top left,#3b2f6d,#120e1c);
+}
+
+/* ================= MAIN CARD ================= */
+.container{
+  width:980px;
+  min-height:540px;
+  display:flex;
+  background:rgba(255,255,255,0.10);
+  backdrop-filter:blur(22px);
+  border-radius:22px;
+  overflow:hidden;
+  box-shadow:0 40px 80px rgba(0,0,0,0.5);
+}
+
+/* ================= LEFT ================= */
+.left{
+  width:44%;
+  position:relative;
+  padding:36px;
+  color:#fff;
+  
+  transition: opacity 0.6s ease-in-out;
+
+
+}
+
+.left::after{
+  content:'';
+  position:absolute;
+  inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.65),rgba(0,0,0,.15));
+}
+
+.left-content{
+  position:relative;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:28px;
+  font-weight:600;
+}
+
+.back{
+  position:absolute;
+  top:20px;
+  right:20px;
+  background:rgba(255,255,255,0.25);
+  padding:8px 18px;
+  border-radius:30px;
+  font-size:13px;
+  cursor:pointer;
+  transition:.3s;
+}
+
+.back:hover{
+  background:rgba(255,255,255,0.4);
+}
+
+.caption{
+  font-size:24px;
+  line-height:1.45;
+  color: white;
+}
+
+.dots{
+  display:flex;
+  gap:10px;
+  margin-top:14px;
+}
+
+.dots span{
+  width:9px;
+  height:9px;
+  background:#aaa;
+  border-radius:50%;
+}
+
+.dots span.active{
+  background:#fff;
+}
+
+/* ================= RIGHT ================= */
+.right{
+  width:56%;
+  padding:48px 46px;
+  color:#fff;
+  display:flex;
+  justify-content:center;
+}
+
+.auth{
+  width:100%;
+}
+
+.panel{
+  display:none;
+  animation:fade .4s ease;
+}
+
+.panel.active{
+  display:block;
+}
+
+@keyframes fade{
+  from{opacity:0;transform:translateY(10px)}
+  to{opacity:1;transform:translateY(0)}
+}
+
+h1{
+  font-weight:500;
+  margin-bottom:6px;
+}
+
+p{
+  font-size:14px;
+  color:#bdbdbd;
+  margin-bottom:30px;
+}
+
+a{
+  color:#8f7bff;
+  text-decoration:none;
+}
+
+.form{
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+}
+
+.row{
+  display:flex;
+  gap:14px;
+}
+
+input{
+  width:100%;
+  padding:14px 16px;
+  border-radius:10px;
+  border:1px solid rgba(255,255,255,0.15);
+  background:rgba(255,255,255,0.08);
+  color:#fff;
+}
+
+input::placeholder{color:#9a9a9a}
+input:focus{border-color:#8f7bff;outline:none}
+
+.password{
+  position:relative;
+}
+
+.password span{
+  position:absolute;
+  right:16px;
+  top:50%;
+  transform:translateY(-50%);
+  cursor:pointer;
+}
+
+.checkbox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-size:13px;
+  color:#bdbdbd;
+  white-space:nowrap;
+}
+
+.checkbox input{
+  width:16px;
+  height:16px;
+  accent-color:#8f7bff;
+  cursor:pointer;
+}
+
+.checkbox label{
+  cursor:pointer;
+}
+
+.checkbox a{
+  color:#8f7bff;
+  text-decoration:none;
+}
+
+.checkbox a:hover{
+  text-decoration:underline;
+}
+
+
+button{
+  padding:15px;
+  border:none;
+  border-radius:10px;
+  background:linear-gradient(135deg,#8f7bff,#6c4cff);
+  color:#fff;
+  cursor:pointer;
+  transition:.3s;
+}
+
+button:hover{
+  box-shadow:0 12px 30px rgba(143,123,255,.45);
+}
+
+.divider{
+  text-align:center;
+  font-size:13px;
+  color:#888;
+}
+
+.social{
+  display:flex;
+  gap:14px;
+}
+
+.social button{
+  flex:1;
+  background:rgba(255,255,255,0.08);
+}
+
+/* ================= RESPONSIVE ================= */
+@media(max-width:900px){
+  .container{flex-direction:column;width:92%}
+  .left,.right{width:100%}
+  .left{min-height:240px}
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- LEFT -->
+  <div class="left">
+    <div class="left-content">
+      <div class="logo">✔</div>
+      <div class="back">← Back to website</div>
+
+      <div>
+        <div class="caption">Capturing Moments,<br>Creating Memories</div>
+       <div class="dots">
+  <span class="active" onclick="changeSlide(0)"></span>
+  <span onclick="changeSlide(1)"></span>
+  <span onclick="changeSlide(2)"></span>
+</div>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT -->
+  <div class="right">
+    <div class="auth">
+          <p id="successMsg" style="display:none;color:#6cffb1;font-size:14px;">
+      ✅ Your account is registered now
+         </p>
+
+      <!-- SIGN UP -->
+      <div class="panel active" id="signup">
+        <h1>Create an account</h1>
+        <p>Already have an account? <a href="#" onclick="showLogin()">Log in</a></p>
+
+        <form class="form" onsubmit="registerUser(event)">
+
+          <div class="row">
+            <input id="fname" placeholder="First name">
+            <input id="lname" placeholder="Last name">
+          
+
+           </div>
+             <input id="email" type="email" placeholder="Email address">
+
+          
+
+          <div class="password">
+            <input id="signupPass" type="password" placeholder="Create password">
+
+            <span onclick="toggle('signupPass')">👁</span>
+          </div>
+
+        <div class="checkbox">
+          <input type="checkbox" id="terms">
+          <label for="terms">
+            I agree to the <a href="#">Terms & Privacy Policy</a>
+          </label>
+        </div>
+
+          <button>Create account</button>
+
+          <div class="divider">Or continue with</div>
+
+          <div class="social">
+            <button>Google</button>
+            <button>Apple</button>
+          </div>
+        </form>
+      </div>
+
+      <!-- LOGIN -->
+      <div class="panel" id="login">
+        <h1>Welcome back</h1>
+        <p>Don’t have an account? <a href="#" onclick="showSignup()">Sign up</a></p>
+
+        <form class="form" onsubmit="loginUser(event)">
+  <input type="email" id="loginEmail" placeholder="Email address" required>
+
+  <div class="password">
+    <input type="password" id="loginPass" placeholder="Password" required>
+    <span onclick="toggle('loginPass')">👁</span>
+  </div>
+
+  <button type="submit">Log in</button>
+</form>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+<script>
+  const slides = [
+  "https://images.unsplash.com/photo-1501785888041-af3ef285b470",
+  "https://images.unsplash.com/photo-1529156069898-49953e39b3ac",
+  "https://images.unsplash.com/photo-1491553895911-0055eca6402d"
+];
+
+let currentSlide = 0;
+const leftSection = document.querySelector(".left");
+const dots = document.querySelectorAll(".dots span");
+
+// initial image
+leftSection.style.background = `url(${slides[0]}) center/cover no-repeat`;
+
+function changeSlide(index){
+  currentSlide = index;
+
+  leftSection.style.background = `url(${slides[index]}) center/cover no-repeat`;
+
+  dots.forEach(dot => dot.classList.remove("active"));
+  dots[index].classList.add("active");
+}
+leftSection.addEventListener("click", () => {
+  currentSlide = (currentSlide + 1) % slides.length;
+  changeSlide(currentSlide);
+});
+
+
+const signup = document.getElementById("signup");
+const login  = document.getElementById("login");
+
+function toggle(id){
+  const input = document.getElementById(id);
+  input.type = input.type === "password" ? "text" : "password";
+}
+
+function showLogin(){
+  signup.classList.remove("active");
+  login.classList.add("active");
+}
+
+function showSignup(){
+  login.classList.remove("active");
+  signup.classList.add("active");
+}
+
+function registerUser(e){
+  e.preventDefault();
+
+  const user = {
+    firstName: document.getElementById("fname").value.trim(),
+    lastName: document.getElementById("lname").value.trim(),
+    email: document.getElementById("email").value.trim(),
+    password: document.getElementById("signupPass").value
+  };
+
+  if(!user.firstName || !user.lastName || !user.email || !user.password){
+    alert("Please fill all fields");
+    return;
+  }
+
+  if(!document.getElementById("terms").checked){
+    alert("Please agree to Terms & Privacy Policy");
+    return;
+  }
+
+  localStorage.setItem("registeredUser", JSON.stringify(user));
+  alert("Account created successfully ✅");
+
+  showLogin();
+}
+
+function loginUser(e){
+  e.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim();
+  const password = document.getElementById("loginPass").value;
+
+  const savedUser = JSON.parse(localStorage.getItem("registeredUser"));
+
+  if(!savedUser){
+    alert("No account found. Please sign up first.");
+    return;
+  }
+
+  if(email === savedUser.email && password === savedUser.password){
+    localStorage.setItem("isLoggedIn", "true");
+    window.location.href = "dashboard.html";
+  } else {
+    alert("Invalid email or password ❌");
+  }
+}
+</script>
+
+
+</body>
+</html>

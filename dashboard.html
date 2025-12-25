@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:'Poppins',sans-serif;
+}
+
+body{
+  min-height:100vh;
+  background:linear-gradient(135deg,#120e1c,#3b2f6d);
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+.dashboard{
+  width:90%;
+  max-width:900px;
+  background:rgba(255,255,255,0.08);
+  backdrop-filter:blur(18px);
+  border-radius:18px;
+  padding:40px;
+  box-shadow:0 40px 80px rgba(0,0,0,0.5);
+}
+
+.header{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.header h1{
+  font-weight:500;
+}
+
+.logout{
+  padding:10px 18px;
+  border:none;
+  border-radius:8px;
+  background:#ff5f5f;
+  color:#fff;
+  cursor:pointer;
+}
+
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+}
+
+.card{
+  background:rgba(255,255,255,0.10);
+  padding:24px;
+  border-radius:14px;
+}
+
+.card h3{
+  font-weight:500;
+  margin-bottom:8px;
+}
+
+.card p{
+  font-size:14px;
+  color:#cfcfcf;
+}
+</style>
+</head>
+
+<body>
+
+<script>
+// 🔒 Protect dashboard
+if(localStorage.getItem("isLoggedIn") !== "true"){
+  window.location.href = "index.html"; // your auth page
+}
+</script>
+
+<div class="dashboard">
+
+  <div class="header">
+    <h1 id="welcomeText">Welcome 👋</h1>
+    <button class="logout" onclick="logout()">Logout</button>
+  </div>
+
+  <div class="cards">
+    <div class="card">
+      <h3>Profile</h3>
+      <p id="userEmail">Loading...</p>
+    </div>
+
+    <div class="card">
+      <h3>Status</h3>
+      <p>Logged in successfully</p>
+    </div>
+
+    <div class="card">
+      <h3>Next Step</h3>
+      <p>Add your features here 🚀</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+// Load user info
+const user = JSON.parse(localStorage.getItem("registeredUser"));
+
+if(user){
+  document.getElementById("welcomeText").innerText =
+    `Welcome, ${user.firstName} 👋`;
+  document.getElementById("userEmail").innerText = user.email;
+}
+
+// Logout function
+function logout(){
+  localStorage.removeItem("isLoggedIn");
+  window.location.href = "index.html";
+}
+</script>
+
+</body>
+</html>
